@@ -11,6 +11,7 @@ public class User {
     private Long id;
 
     private String name;
+    private String initials;
     private String password;
     // ---------- Constructors ----------
     public User() {}
