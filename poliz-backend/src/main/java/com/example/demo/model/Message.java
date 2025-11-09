@@ -20,10 +20,9 @@ public class Message {
     private String time;
 
     // ----------- ความสัมพันธ์กับ Chat -----------
-    // Chat เป็นเจ้าของห้องแชท 1 ห้องมีหลาย message
-    // Message จะรู้ว่าตัวเองอยู่ใน chat ไหน
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference   // ✅ ป้องกัน loop ตอน serialize JSON
+    @JsonBackReference
     @JoinColumn(name = "chat_id")
     private Chat chat;
 

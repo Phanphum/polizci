@@ -20,13 +20,11 @@ public class Chat {
     // ----------- ข้อความล่าสุดในห้องนี้ -----------
     private String lastMessage;
 
-    // ✅ unread แยกฝั่ง
     // unreadForA = จำนวนข้อความที่ "userA ยังไม่ได้อ่าน"
     // unreadForB = จำนวนข้อความที่ "userB ยังไม่ได้อ่าน"
     private int unreadForA = 0;
     private int unreadForB = 0;
 
-    // ✅ เชื่อม Message ↔ Chat แบบ bidirectional
     // mappedBy = "chat" => ให้ Message เป็นเจ้าของ foreign key (chat_id)
     @OneToMany(
             mappedBy = "chat",
@@ -34,7 +32,7 @@ public class Chat {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    @JsonManagedReference   // ✅ คู่กับ JsonBackReference
+    @JsonManagedReference
 
     private List<Message> messages = new ArrayList<>();
 
@@ -70,12 +68,10 @@ public class Chat {
 
     // ---------- Logic: เวลาเพิ่มข้อความใหม่ ----------
     public void addMessage(Message msg) {
-        // ✅ ผูก message → chat
         msg.setChat(this);
         this.messages.add(msg);
         this.lastMessage = msg.getText();
 
-        // ✅ เพิ่ม unread เฉพาะฝั่งที่ "ไม่ได้เป็นผู้ส่ง"
         if (msg.getSender().equalsIgnoreCase(this.userA)) {
             this.unreadForB++;
         } else if (msg.getSender().equalsIgnoreCase(this.userB)) {
@@ -84,7 +80,6 @@ public class Chat {
     }
 
     // ---------- Helper ----------
-    // ✅ ใช้ตอน query /users?exclude=xxx → เพื่อหาว่าคนที่ล็อกอินยังมี unread เท่าไหร่
     public int getUnreadCountFor(String username) {
         if (username.equalsIgnoreCase(userA)) {
             return unreadForA;
@@ -94,7 +89,6 @@ public class Chat {
         return 0;
     }
 
-    // ✅ ใช้ตอนเปิดห้องแชท → reset unread ของฝั่งที่เข้ามาอ่าน
     public void markAsReadFor(String username) {
         if (username.equalsIgnoreCase(userA)) {
             this.unreadForA = 0;

@@ -10,24 +10,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;        // ชื่อผู้ใช้
-    private String initials;    // ตัวย่อ (แสดงในวงกลม Avatar)
-    private String password;    // รหัสผ่าน (ใช้ login mock)
-
+    private String name;
+    private String password;
     // ---------- Constructors ----------
     public User() {}
 
-    // ✅ ใช้ constructor นี้เวลา seed ข้อมูลใน DataLoader
     public User(String name, String password) {
         this.name = name;
         this.password = password;
-        // ตั้ง initials จากชื่อโดยอัตโนมัติ เช่น "Ploy" -> "PL"
         this.initials = name.length() >= 2
                 ? name.substring(0, 2).toUpperCase()
                 : name.toUpperCase();
     }
 
-    // ✅ ใช้ constructor แบบกำหนด initials เอง (กรณีต้องการ override)
     public User(String name, String initials, String password) {
         this.name = name;
         this.initials = initials;

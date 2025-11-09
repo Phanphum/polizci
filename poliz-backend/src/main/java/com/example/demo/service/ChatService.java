@@ -13,7 +13,6 @@ public class ChatService {
     private final List<Chat> chats = new ArrayList<>();
 
     public ChatService() {
-        // ✅ Mock data เริ่มต้น (ชื่อเดียวกับใน DB / DataLoader)
         Chat c1 = new Chat("Pim", "Ploy");
         Chat c2 = new Chat("Nine", "Earn");
         Chat c3 = new Chat("Parn", "Sunny");
@@ -25,7 +24,6 @@ public class ChatService {
         c3.setLastMessage("System maintenance scheduled at 6PM.");
         c4.setLastMessage("Ready for patrol.");
 
-        // ✅ ตั้ง unread แยกฝั่ง (คนที่ยังไม่ได้อ่าน)
         // ตัวอย่าง: Pim ส่งหาพลอย → unreadForB = 1 (เพราะ Ploy ยังไม่ได้อ่าน)
         c1.setUnreadForA(0);
         c1.setUnreadForB(1);
@@ -33,7 +31,7 @@ public class ChatService {
         c2.setUnreadForA(0);
         c2.setUnreadForB(0);
 
-        c3.setUnreadForA(2); // Sunny ยังไม่ได้อ่าน
+        c3.setUnreadForA(2);
         c3.setUnreadForB(0);
 
         c4.setUnreadForA(0);
@@ -42,12 +40,10 @@ public class ChatService {
         chats.addAll(List.of(c1, c2, c3, c4));
     }
 
-    // ✅ ดึงแชททั้งหมด
     public List<Chat> getAll() {
         return chats;
     }
 
-    // ✅ ค้นหาชื่อหรือข้อความที่ตรง keyword
     public List<Chat> search(String keyword) {
         return chats.stream()
                 .filter(c ->
@@ -57,7 +53,6 @@ public class ChatService {
                 .toList();
     }
 
-    // ✅ เพิ่มข้อความใหม่ (อัปเดต unread แยกฝั่ง)
     public Chat addMessage(Long id, Message msg) {
         for (Chat c : chats) {
             if (c.getId() != null && c.getId().equals(id)) {
@@ -77,7 +72,6 @@ public class ChatService {
         return null;
     }
 
-    // ✅ ค้นหา Chat ตาม id
     public Chat findById(Long id) {
         return chats.stream()
                 .filter(c -> c.getId() != null && c.getId().equals(id))
@@ -85,7 +79,6 @@ public class ChatService {
                 .orElse(null);
     }
 
-    // ✅ Mark-as-read โดยใช้ชื่อผู้ใช้
     public boolean markAsReadByName(String name) {
         boolean updated = false;
 

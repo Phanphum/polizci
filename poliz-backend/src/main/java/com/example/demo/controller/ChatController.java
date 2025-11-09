@@ -90,7 +90,6 @@ public class ChatController {
         if (chat == null)
             return List.of();
 
-        // ✅ แก้ตรงนี้: ดึงจาก MessageRepository แทน
         return msgRepo.findByChatId(chat.getId());
     }
 
@@ -116,7 +115,6 @@ public class ChatController {
         if (chat == null)
             chat = new Chat(sender, receiver);
 
-        // ✅ ผูก message กับ chat
         Message msg = new Message(sender, receiver, text, time);
         msg.setChat(chat);
         chat.addMessage(msg);
