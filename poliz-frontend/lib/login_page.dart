@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'styles/app_theme.dart';
 import 'styles/styles.dart';
-import 'dashboard_page.dart';
+import 'dashboard_page.dart';  // เพิ่มหน้า DashboardPage สำหรับไปที่หลังจากล็อกอินสำเร็จ
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -23,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
     final username = userCtrl.text.trim();
     final password = passCtrl.text.trim();
 
+    // ตรวจสอบว่า username หรือ password ว่าง
     if (username.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please enter both username and password')),
@@ -30,18 +31,19 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    setState(() => loading = true);
+    setState(() => loading = true);  // กำลังโหลด
     try {
       final res = await http.post(
-        Uri.parse('http://localhost:8080/api/chats/login'),
+        Uri.parse('http://localhost:8080/api/chats/login'),  // ใช้ URL ของ backend
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'name': username, 'password': password}),
       );
 
+      // ตรวจสอบการตอบกลับจาก server
       if (res.statusCode == 200) {
         final user = jsonDecode(res.body);
         // ✅ ล็อกอินสำเร็จ → ไปหน้า Dashboard
-        if (!mounted) return;
+        if (!mounted) return;  // ตรวจสอบว่า widget ยังถูก mount อยู่หรือไม่
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -49,16 +51,18 @@ class _LoginPageState extends State<LoginPage> {
           ),
         );
       } else {
+        // ล็อกอินไม่สำเร็จ
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Login failed: ${res.body}')),
         );
       }
     } catch (e) {
+      // จัดการกรณีที่ไม่สามารถเชื่อมต่อกับ server ได้
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Cannot connect to server: $e')),
       );
     } finally {
-      setState(() => loading = false);
+      setState(() => loading = false);  // หมดการโหลด
     }
   }
 
@@ -108,6 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                             fontWeight: FontWeight.w700, color: Colors.white)),
                     const SizedBox(height: 8),
                     TextField(
+                      key: const ValueKey('usernameField'), // <--- KEY: USERNAME
                       controller: userCtrl,
                       style: const TextStyle(color: Colors.white),
                       decoration: const InputDecoration(
@@ -121,6 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                             fontWeight: FontWeight.w700, color: Colors.white)),
                     const SizedBox(height: 8),
                     TextField(
+                      key: const ValueKey('passwordField'), // <--- KEY: PASSWORD
                       controller: passCtrl,
                       obscureText: obscured,
                       style: const TextStyle(color: Colors.white),
@@ -144,6 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 48,
                       width: double.infinity,
                       child: FilledButton(
+                        key: const ValueKey('loginButton'), // <--- KEY: LOGIN BUTTON
                         onPressed: loading ? null : _login,
                         child: loading
                             ? const CircularProgressIndicator(
@@ -165,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-      ]),
+      ]), // Stack ends here
     );
   }
 }

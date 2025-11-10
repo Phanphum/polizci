@@ -173,7 +173,9 @@ class _DashboardPageState extends State<DashboardPage> {
                 );
               },
             ),
+            // ✅ เพิ่ม Key สำหรับ Secure Chat Card
             _buildDashboardCard(
+              key: const ValueKey('secureChatCard'), // <--- KEY ที่ใช้ในการทดสอบ
               icon: Icons.chat_bubble_outline,
               title: 'Secure Chat',
               color: Colors.green,
@@ -246,11 +248,13 @@ class _DashboardPageState extends State<DashboardPage> {
     required String title,
     required Color color,
     required VoidCallback onTap,
+    Key? key, // <--- รับ Key ใหม่
   }) {
     return SizedBox(
       width: 240,
       height: 140,
       child: Card(
+        key: key, // <--- ใช้ Key ที่นี่
         elevation: 1,
         clipBehavior: Clip.antiAlias,
         shape:

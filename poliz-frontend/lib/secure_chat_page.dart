@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 /// ---------- Navy palette ----------
 const kNavy900 = Color(0xFF0B1E3C);
@@ -196,6 +197,7 @@ class _SecureChatPageState extends State<SecureChatPage> {
               children: [
                 Expanded(
                   child: TextField(
+                    key: const ValueKey('searchBox'), // ใส่ key ตรงนี้
                     controller: _searchCtrl,
                     onChanged: (_) => _applySearch(),
                     decoration: InputDecoration(
@@ -218,7 +220,18 @@ class _SecureChatPageState extends State<SecureChatPage> {
           ),
           Expanded(
             child: _visible.isEmpty
-                ? const Center(child: CircularProgressIndicator())
+                ? (_searchCtrl.text.isNotEmpty
+                    ? const Center(
+                        child: Text(
+                          'Not Found',
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: kBlueRing,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
+                    : const Center(child: CircularProgressIndicator()))
                 : ListView.separated(
                     padding: const EdgeInsets.all(16),
                     itemCount: _visible.length,
@@ -294,8 +307,7 @@ class _ChatTile extends StatelessWidget {
           ),
           if (item.unread > 0)
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
                   color: kBlueRing, borderRadius: BorderRadius.circular(12)),
               child: Text('${item.unread}',
@@ -308,7 +320,6 @@ class _ChatTile extends StatelessWidget {
   }
 }
 
-/// ------------------ Group Chat Page ------------------
 class GroupChatPage extends StatefulWidget {
   final String currentUser;
   final String receiverName;
@@ -322,7 +333,7 @@ class GroupChatPage extends StatefulWidget {
 class _GroupChatPageState extends State<GroupChatPage> {
   final _msgCtrl = TextEditingController();
   final List<_Msg> _messages = [];
-  
+
   // ✅ ใช้ localhost สำหรับเชื่อม backend Spring Boot
   final String _baseUrl = 'http://localhost:8080/api/chats';
   Timer? _pollTimer;
@@ -370,29 +381,45 @@ class _GroupChatPageState extends State<GroupChatPage> {
 
   Future<void> _send() async {
     final text = _msgCtrl.text.trim();
-    if (text.isEmpty) return;
+    debugPrint('ส่ง text: |$text|'); // ชัวร์ว่าไม่ว่าง
+
+    if (text.isEmpty) {
+      debugPrint('ข้อความว่าง ไม่ส่ง');
+      return;
+    }
+
+    // แสดงเวลาแบบที่ต้องการ
+    final formattedTime = DateFormat('h:mm a').format(DateTime.now());
 
     final msg = _Msg(
       initials: 'YOU',
       sender: widget.currentUser,
       text: text,
-      time: TimeOfDay.now().format(context),
+      time: formattedTime,
     );
 
     setState(() => _messages.add(msg));
     _msgCtrl.clear();
 
     try {
-      await http.post(
+      debugPrint('POST BODY: ' + jsonEncode({
+        'sender': widget.currentUser,
+        'receiver': widget.receiverName,
+        'text': text,
+        'time': formattedTime
+      }));
+
+      final response = await http.post(
         Uri.parse('$_baseUrl/${widget.currentUser}/${widget.receiverName}/send'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'sender': widget.currentUser,
           'receiver': widget.receiverName,
           'text': text,
-          'time': msg.time
+          'time': formattedTime
         }),
       );
+      debugPrint('Send-response status: ${response.statusCode} body: ${response.body}');
     } catch (e) {
       debugPrint("⚠️ Error sending message: $e");
     }
@@ -441,6 +468,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
                 children: [
                   Expanded(
                     child: TextField(
+                      key: const ValueKey('messageInput'),
                       controller: _msgCtrl,
                       onSubmitted: (_) => _send(),
                       decoration: InputDecoration(
@@ -452,9 +480,9 @@ class _GroupChatPageState extends State<GroupChatPage> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  // ปรับปุ่มให้ disabled ถ้าไม่มีข้อความ
                   FilledButton(
-                    onPressed: _msgCtrl.text.isEmpty ? null : _send, // ถ้าไม่มีข้อความจะทำให้ปุ่มไม่สามารถคลิกได้
+                    key: const ValueKey('sendButton'),
+                    onPressed: _msgCtrl.text.isEmpty ? null : _send,
                     child: const Icon(Icons.send),
                   ),
                 ],
@@ -466,7 +494,6 @@ class _GroupChatPageState extends State<GroupChatPage> {
     );
   }
 }
-
 
 class _Msg {
   final String initials;
