@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 @RestController
 @RequestMapping("/api/v1/crime-incidents")
 public class CrimeIncidentController {
@@ -37,10 +40,18 @@ public class CrimeIncidentController {
     public ResponseEntity<CrimeIncidentDto> createIncident(
             @RequestBody CrimeIncidentDto dto
     ) {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm");
+
         CrimeIncident c = new CrimeIncident();
         c.setType(dto.type());
         c.setPlaceName(dto.placeName());
-        c.setTimeLabel(dto.timeLabel());
+
+        if (dto.time() != null && !dto.time().isBlank()) {
+            c.setIncidentTime(LocalTime.parse(dto.time(), fmt)); // expects "HH:mm"
+        } else {
+            c.setIncidentTime(LocalTime.now());
+        }
+
         c.setDescription(dto.description());
         c.setLatitude(dto.latitude());
         c.setLongitude(dto.longitude());

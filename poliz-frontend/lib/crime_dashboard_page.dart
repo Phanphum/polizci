@@ -454,9 +454,8 @@ class _Inc {
     return _Inc(
       type: json['type'] as String,
       place: json['placeName'] as String,
-      time: json['timeLabel'] as String,
+      time: (json['time'] as String?) ?? '-',
       description: (json['description'] as String?) ?? '',
-      // backend doesn’t have status yet, default to "Ongoing"
       status: (json['status'] as String?) ?? 'Ongoing',
       latitude: (json['latitude'] as num?)?.toDouble(),
       longitude: (json['longitude'] as num?)?.toDouble(),
