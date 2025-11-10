@@ -1,6 +1,7 @@
 package com.example.demo.crime;
 
 import jakarta.persistence.*;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "crime_incidents")
@@ -17,8 +18,9 @@ public class CrimeIncident {
     @Column(nullable = false)
     private String placeName;
 
-    @Column(nullable = false)
-    private String timeLabel;
+    // Time of incident (HH:mm), no date
+    @Column(name = "incident_time", nullable = false)
+    private LocalTime incidentTime;
 
     @Column(length = 2000)
     private String description;
@@ -38,8 +40,8 @@ public class CrimeIncident {
     public String getPlaceName() { return placeName; }
     public void setPlaceName(String placeName) { this.placeName = placeName; }
 
-    public String getTimeLabel() { return timeLabel; }
-    public void setTimeLabel(String timeLabel) { this.timeLabel = timeLabel; }
+    public LocalTime getIncidentTime() { return incidentTime; }
+    public void setIncidentTime(LocalTime incidentTime) { this.incidentTime = incidentTime; }
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
