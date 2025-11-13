@@ -1,5 +1,7 @@
-package com.example.demo.crime;
+package com.example.demo.config;
 
+import com.example.demo.model.CrimeIncident;
+import com.example.demo.service.CrimeIncidentService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 import java.time.LocalTime;
@@ -34,7 +36,7 @@ public class CrimeIncidentDataLoader {
         service.save(create(
                 "Accident",
                 "Chulalongkorn Hospital",
-                LocalTime.of(12, 05),
+                LocalTime.of(12, 25),
                 "Traffic accident near hospital main entrance. EMS on site.",
                 13.732561,
                 100.536426

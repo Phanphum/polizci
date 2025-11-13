@@ -1,5 +1,8 @@
-package com.example.demo.crime;
+package com.example.demo.controller;
 
+import com.example.demo.service.CrimeIncidentService;
+import com.example.demo.model.CrimeIncident;
+import com.example.demo.model.CrimeIncidentDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

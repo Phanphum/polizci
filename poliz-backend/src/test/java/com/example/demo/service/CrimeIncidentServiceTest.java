@@ -1,5 +1,7 @@
-package com.example.demo.crime;
+package com.example.demo.service;
 
+import com.example.demo.model.CrimeIncident;
+import com.example.demo.repository.CrimeIncidentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,11 +16,9 @@ import static org.mockito.Mockito.*;
 
 /**
  * Unit tests for CrimeIncidentService.getIncidentsByType(String).
- *
  * Test design technique: Logic coverage (predicate / branch coverage).
- *
  * We exercise different truth values of the predicate:
- *   (type == null || type.isBlank() || type.equalsIgnoreCase("All Types"))
+ * (type == null || type.isBlank() || type.equalsIgnoreCase("All Types"))
  */
 class CrimeIncidentServiceTest {
 

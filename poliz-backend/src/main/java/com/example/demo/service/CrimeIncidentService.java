@@ -1,5 +1,7 @@
-package com.example.demo.crime;
+package com.example.demo.service;
 
+import com.example.demo.model.CrimeIncident;
+import com.example.demo.repository.CrimeIncidentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
