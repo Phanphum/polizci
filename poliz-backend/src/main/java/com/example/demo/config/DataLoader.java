@@ -17,7 +17,7 @@ public class DataLoader {
                 repo.save(new User("Ploy", "PP", "Ploy"));
                 repo.save(new User("Nine", "NE", "Nine"));
                 repo.save(new User("Earn", "EN", "Earn"));
-                repo.save(new User("Parn", "PN", "Parn"));
+                repo.save(new User("Pran", "PN", "Pran"));
                 repo.save(new User("Sunny", "SN", "Sunny"));
                 System.out.println("✅ Sample users inserted into H2 DB!");
             } else {
