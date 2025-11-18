@@ -65,7 +65,7 @@
     <td>TC_INCIDENT_ADD_01</td>
     <td>Create new Fire incident with all required fields</td>
     <td>Completed</td>
-    <td>SuperShine</td>
+    <td>Nimmida</td>
     <td>No</td>
     <td>Passed</td>
     <td>No Run</td>
@@ -79,7 +79,7 @@
     <td>TC_INCIDENT_ADD_02</td>
     <td>Fail to create incident when Place field is empty</td>
     <td>Completed</td>
-    <td>SuperShine</td>
+    <td>Nimmida</td>
     <td>No</td>
     <td>Passed</td>
     <td>No Run</td>
