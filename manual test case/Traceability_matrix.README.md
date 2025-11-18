@@ -3,6 +3,7 @@
 |:------:|-----------------|-------------|--------|
 | 101 | Secure Chat – Search Function | TC_USER_SEARCH_01,TC_USER_SEARCH_02 | TC_USER_SEARCH_01 – Pass, TC_USER_SEARCH_02 – Pass|
 | 102    | Incident Importance Ranking – Add & Rank Incident | TC_INCIDENT_ADD_01, TC_INCIDENT_ADD_02 | TC_INCIDENT_ADD_01 – Pass, TC_INCIDENT_ADD_02 – Pass       |
+| 103    | Incident Importance Ranking – Search Incident        | TC_INCIDENT_SEARCH_01, TC_INCIDENT_SEARCH_02 | TC_INCIDENT_SEARCH_01 – Pass, TC_INCIDENT_SEARCH_02 – Pass  |
 
 
 # Requirement Traceability Matrix (RTM) — Good Poliz
@@ -65,7 +66,7 @@
     <td>TC_INCIDENT_ADD_01</td>
     <td>Create new Fire incident with all required fields</td>
     <td>Completed</td>
-    <td>Nimmida</td>
+    <td>SuperShine</td>
     <td>No</td>
     <td>Passed</td>
     <td>No Run</td>
@@ -79,7 +80,37 @@
     <td>TC_INCIDENT_ADD_02</td>
     <td>Fail to create incident when Place field is empty</td>
     <td>Completed</td>
-    <td>Nimmida</td>
+    <td>SuperShine</td>
+    <td>No</td>
+    <td>Passed</td>
+    <td>No Run</td>
+    <td>No Run</td>
+    <td>None</td>
+    <td>N/A</td>
+    <td>Test OK</td>
+  </tr>
+    <tr>
+    <td rowspan="2">3</td>
+    <td rowspan="2">Req03</td>
+    <td rowspan="2">Incident Importance Ranking – Search Incident</td>
+    <td>TC_INCIDENT_SEARCH_01</td>
+    <td>Search incident by type "Fire"</td>
+    <td>Completed</td>
+    <td>SuperShine</td>
+    <td>No</td>
+    <td>Passed</td>
+    <td>No Run</td>
+    <td>No Run</td>
+    <td>None</td>
+    <td>N/A</td>
+    <td>Test OK</td>
+    <td rowspan="2">Full</td>
+  </tr>
+  <tr>
+    <td>TC_INCIDENT_SEARCH_02</td>
+    <td>Search incident by type "Traffic Accident" (no result)</td>
+    <td>Completed</td>
+    <td>SuperShine</td>
     <td>No</td>
     <td>Passed</td>
     <td>No Run</td>
