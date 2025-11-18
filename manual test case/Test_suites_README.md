@@ -18,8 +18,6 @@
 **Test Executed by:** SuperShine  
 **Test Execution date:** 10/11/2025
 
----
-
 **Pre-conditions**
 - Users can log in and access the **Secure Chat** page.
 - The chat with the name **Ploy** exists.
@@ -84,8 +82,6 @@ No chat with the name "eiei" is found, and the "Not Found" message appears.
 **Test Executed by:** SuperShine  
 **Test Execution date:** 10/11/2025  
 
----
-
 **Pre-conditions**
 - User can log in to the **GoodPoliz** system.
 - User has successfully navigated to the **Incident Importance Ranking** page.
@@ -120,8 +116,6 @@ Login page, Dashboard/Home page, Incident Importance Ranking page, Backend incid
 **Test Designed date:** 10/11/2025  
 **Test Executed by:** SuperShine  
 **Test Execution date:** 10/11/2025  
-
----
 
 **Pre-conditions**
 - User can log in to the **GoodPoliz** system.
@@ -194,8 +188,6 @@ Login page, Dashboard/Home page, AI Incident Ranking page, Incident list, Search
 **Test Designed date:** 10/11/2025  
 **Test Executed by:** SuperShine  
 **Test Execution date:** 10/11/2025  
-
----
 
 **Pre-conditions**
 - User can log in to the **GoodPoliz** system.
