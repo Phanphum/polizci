@@ -47,8 +47,6 @@ The **Ploy** chat appears in the search results.
 **Test Executed by:** SuperShine  
 **Test Execution date:** 10/11/2025
 
----
-
 **Pre-conditions**
 - Users can log in and access the **Secure Chat** page.
 
@@ -182,7 +180,7 @@ Login page, Dashboard/Home page, AI Incident Ranking page, Incident list, Search
 **Test Priority:** Medium  
 **Module Name:** GoodPoliz: Incident Importance Ranking — Search  
 **Test Title:** Search incident by type "Traffic Accident" (No matching incident)  
-**Description:** Verify that when the user searches with a type that does not match any existing incident (e.g., "Traffic Accident"), the incident list becomes empty and the **“No incidents found (or Backend disconnected).”** message is displayed.
+**Description:** Verify that when the user searches with a type that does not match any existing incident (e.g., "Traffic Accident"), the incident list becomes empty and the **“No incidents found”** message is displayed.
 
 **Test Designed by:** SuperShine  
 **Test Designed date:** 10/11/2025  
@@ -202,7 +200,7 @@ Login page, Dashboard/Home page, AI Incident Ranking page, Incident list, Search
 | Step | Test Steps | Test Data | Expected Result | Actual Result | Status (Pass/Fail) | Notes |
 |---:|---|---|---|---|---|---|
 | 1 | Log in and click **"AI Incident Ranking"** from the main menu to open the Incident Importance Ranking page. | Email/Pass: **Earn / Earn** | System logs in successfully and displays the Incident Importance Ranking page with the incident list and search box. | System logs in successfully and displays the Incident Importance Ranking page with the incident list and search box. | Pass |  |
-| 2 | In the **search box** above the incident list, enter `Traffic Accident`. | `Traffic Accident` | The search box accepts `Traffic Accident`. The incident list becomes empty, the text **“No incidents found (or Backend disconnected).”** is displayed, and the footer shows **Loaded: 0 incidents**. No incident rows are shown. | The list becomes empty, the message “No incidents found (or Backend disconnected).” is displayed, and the footer shows **Loaded: 0 incidents**. No incident rows are shown. | Pass |  |
+| 2 | In the **search box** above the incident list, enter `Traffic Accident`. | `Traffic Accident` | The search box accepts `Traffic Accident`. The incident list becomes empty, the text **“No incidents found** is displayed, and the footer shows **Loaded: 0 incidents**. No incident rows are shown. | The list becomes empty, the message “No incidents found (or Backend disconnected).” is displayed, and the footer shows **Loaded: 0 incidents**. No incident rows are shown. | Pass |  |
 
 **Post-conditions**
 - No incident is displayed for the search query **"Traffic Accident"**.
