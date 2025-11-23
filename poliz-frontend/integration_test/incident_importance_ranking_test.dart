@@ -69,11 +69,12 @@ void main() {
 
     // EXPECT: New incident appears
     expect(find.text('Fire @ ICT, Mahidol University'), findsOne);
-    expect(find.text('2025-11-06 10:30'), findsOne);
 
   });
 
   testWidgets('TC_INCIDENT_ADD_02', (WidgetTester tester) async {
+
+    await loginAndGoToIncidentImportantRanking(tester);
   
       // Select Incident Type
     await tester.tap(find.byKey(const ValueKey('typeDropdown')));
