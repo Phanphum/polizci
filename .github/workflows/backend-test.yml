@@ -2,7 +2,7 @@ name: Backend Unit Tests
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, ci-test ]
   pull_request:
     branches: [ main, develop ]
 
@@ -10,28 +10,22 @@ jobs:
   test-backend:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: backend   # 👈 IMPORTANT
+
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: '17'
 
-      - name: Cache Gradle packages
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
       - name: Make Gradle wrapper executable
-        run: chmod +x gradlew
+        run: chmod +x gradlew         # 👈 now this works
 
       - name: Run unit tests
         run: ./gradlew test
