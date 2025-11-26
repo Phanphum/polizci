@@ -61,7 +61,8 @@ test/
 We performed manual system testing for three major workflows in the GoodPoliz mobile app.  
 All detailed test cases (with IDs, steps, expected/actual results) are located in: 
 ```text
-/manual test case/
+manual test case/
+└──Test_suites_README.md
 ```
 
 #### **Test Suite 1 — Secure Chat: User Search**
@@ -111,17 +112,36 @@ Each automated test suite is directly based on its corresponding manual test sui
 ### Automated Test Suites Overview
 
 #### **1. search_chat_test.dart**
-Automates:
-- 
+Automates the Secure Chat search workflow (TC_USER_SEARCH_01 and TC_USER_SEARCH_02):
 
+- Logs in as `Nine` and navigates to the **Secure Chat** screen.
+- TC_USER_SEARCH_01 (happy path):  
+  - Enters `Ploy` into the search box  
+  - Confirms the chat named **Ploy** appears in the ListView.
+- TC_USER_SEARCH_02 (unhappy path):  
+  - Enters `eiei`  
+  - Confirms no chat results appear and the **“Not Found”** message is displayed.
 
-#### **2. search_incident_test.dart**
-Automates:
-- 
+#### **2. incident_importance_ranking_test.dart**
+Automates the manual incident creation tests (TC_INCIDENT_ADD_01 and TC_INCIDENT_ADD_02):
 
-#### **3. incident_importance_ranking_test.dart**
-Automates:
-- 
+- Logs in as `Earn` and navigates to the **AI Incident Ranking** page.
+- Fills and submits the **Add New Incident** form for a Fire incident:
+  - Happy path: all fields filled → new incident card `Fire @ ICT, Mahidol University` appears.
+  - Unhappy path: Place left empty → validation message `Place is required` is shown.
+
+#### **3. search_incident_test.dart**
+Automates the incident search scenarios (TC_INCIDENT_SEARCH_01 and TC_INCIDENT_SEARCH_02):
+
+- Logs in as `Earn` and navigates to the **AI Incident Ranking** page.
+- TC_INCIDENT_SEARCH_01 (happy path):
+  - Programmatically adds a Fire incident (`Fire @ ICT, Mahidol University`).
+  - Enters `Fire` in the search field.
+  - Confirms the Fire incident card appears in the filtered list.
+- TC_INCIDENT_SEARCH_02 (no-match case):
+  - Enters `Traffic Accident` in the search field.
+  - Confirms the UI shows `Loaded: 0 incidents` (no incidents found).
+
 
 ### Folder Structure
 ```text
