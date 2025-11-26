@@ -2,8 +2,8 @@
 
 GoodPoliz is a mobile and backend system designed to support police operations through AI-assisted decision-making, real-time alerts, and secure communication.
 
-This project includes **Flutter automated UI tests** using  
-**Flutter Drive + ChromeDriver + Flutter Web**.
+This project includes Flutter automated UI tests written with the **integration_test framework**, and executed on **Flutter Web (Chrome)** using the **Flutter Drive runner** and **ChromeDriver**.
+
 
 ## Core Features
 - **Incident Importance Ranking**
@@ -18,7 +18,7 @@ This README summarizes the **Unit Testing**, **System Testing**, and **Automated
 
 # 1. Unit Testing (Backend – Java Spring Boot)
 
-Our backend unit tests are implemented using **JUnit**, with three unit test suites covering both controller and service layers.  
+Our backend unit tests are implemented using **JUnit**, **Mockito** with three unit test suites covering both controller and service layers.  
 Each suite includes multiple test cases designed using input space partitioning and logic coverage techniques.
 
 ### Unit Test Suites Overview
@@ -99,13 +99,15 @@ manual test case/
 └──Traceability_matrix.README.md
 ```
 
-# 3. Automated UI Testing (Flutter Drive)
+# 3. Automated UI Testing (Flutter Integration Test + Flutter Drive Runner)
 
 We implemented automated UI testing using:
 
-- **Flutter Drive**  
-- **ChromeDriver**  
-- **Flutter Web**
+- **integration_test** (main testing framework)
+- **flutter_test** (WidgetTester utilities)
+- **Flutter Drive (as the test runner for Web)**
+- **ChromeDriver** (web automation)
+- **Flutter Web (Chrome)**
 
 Each automated test suite is directly based on its corresponding manual test suite.
 
@@ -153,8 +155,7 @@ Automates the incident search scenarios (TC_INCIDENT_SEARCH_01 and TC_INCIDENT_S
 
 ---
 
-## Running Automated UI Tests (Flutter Drive + Chrome)
-
+## Running Automated UI Tests 
 ### **Start ChromeDriver**
 Before running any test, ChromeDriver must be running.
 
